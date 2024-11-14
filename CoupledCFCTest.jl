@@ -111,7 +111,7 @@ end
 ax[3].set_ylabel("Ocean CFC [mol/kg]")
 
 # Add grids and legends to all panels
-[a.grid() for a in ax]
+[a.grid(alpha = 0.4) for a in ax]
 [a.legend(ncols = 2) for a in ax]
 
 # Set x-axis properties
