@@ -1,5 +1,5 @@
-Solubility (F) coefficients from Warner and Weiss (1985)
-Coefficients,CFC-11 (mol/(kg * atm),CFC-12 (mol/(kg * atm)
+Solubility (F, units mol/(kg * atm)) coefficients from Warner and Weiss (1985)
+Coefficients,CFC11,CFC12
 a_1,-232.0411,-220.2120
 a_2,322.5546,301.8695
 a_3,120.4956,114.8533
