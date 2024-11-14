@@ -22,7 +22,7 @@ Here,
 
 Assuming that surface pressure only varies slightly, $CFC_{sat}$ may be 
 approximated as: 
-$$ CFC_{sat} \approx = \frac{P_{CFC}}{P_{CFC}^0} F x_{CFC}$$
+$$CFC_{sat} \approx = \frac{P_{CFC}}{P_{CFC}^0} F x_{CFC}$$
 
 - $F$ is the CFC solubility function from Warner and Weiss (1985)
 - $x_{CFC}$ are atmospheric records of CFC-11 and CFC-12 in parts per trillion (ppt)
