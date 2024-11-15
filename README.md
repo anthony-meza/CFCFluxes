@@ -1,4 +1,4 @@
-# CFCSolubility
+# CFCFluxes
 
 The purpose of this code is to faciliate the easily 
 calculation of air-sea fluxes of CFC-11 and CFC-12. The flux, 
