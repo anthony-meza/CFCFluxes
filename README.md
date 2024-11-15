@@ -1,6 +1,6 @@
 # CFCFluxes
 
-Calculate air-sea fluxes of CFC-11 and CFC-12 according to OMIP protocols and Dutay (2002).
+Calculate air-sea fluxes of CFC-11 and CFC-12 according to OMIP protocols (Orr et al., 2017) and Dutay (2002).
 
 The CFC flux ($F$) is given by:
 
@@ -41,3 +41,4 @@ where:
 - Dutay et al. (2002)
 - Wanninkhof (1992)
 - Warner and Weiss (1985)
+- Orr et al. (2017)
