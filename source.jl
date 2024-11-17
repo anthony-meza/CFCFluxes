@@ -1,14 +1,24 @@
-using DataFrames, CSV
+using DataFrames, CSV, Unitful
 
+@affineunit °F "°F" (45967//100)Ra
+
+PSU = u"g/kg"
+uconvert(u"°C", 32u"°F")
+
+
+absoluteunit(1u"°C")
 # ===== Core CFC functions ===== #
-function calculate_solubility(T, S; compound::String="CFC-11")
+
+function calculate_solubility(T::Unitful.Temperature, 
+                             S; compound::String="CFC-11")
     types = Dict(
     :Coefficients => String,
     :CFC11 => Float32, 
     :CFC12 => Float32
     )
 
-    T_kelvin = T + 273.15
+    # T_kelvin = T + 273.15
+    
     coefficient_column = compound == "CFC-11" ? 2 : 
                         compound == "CFC-12" ? 3 : 
                         error("Unsupported compound: $compound")
@@ -16,17 +26,18 @@ function calculate_solubility(T, S; compound::String="CFC-11")
     coefficients = DataFrame(CSV.File("SolubilityCoefficients.csv"; header=2, types = types))
     coefficients = coefficients[:, coefficient_column]
     
+    α₁, α₂, α₃, α₄ = = 
     T_ratio = T_kelvin / 100
     temp_terms = coefficients[1] + 
                 (coefficients[2] * 100 / T_kelvin) + 
                 (coefficients[3] * log(T_ratio)) + 
-                (coefficients[4] * T_ratio^2)
+                (coefficients[4] * (T_ratio^2))
     
     salinity_terms = S * (coefficients[5] + 
                          (coefficients[6] * T_ratio) + 
-                         (coefficients[7] * T_ratio^2))
+                         (coefficients[7] * (T_ratio^2)))
     
-    return exp(temp_terms + salinity_terms)
+    return exp(temp_terms + salinity_terms) * 1000 #mol/L/atm -> mol/m³/atm
 end
 
 function schmidt_number(T; compound::String="CFC-11")
@@ -54,13 +65,13 @@ end
 function piston_velocity(T, u, f; compound::String="CFC-11")
     a = 6.97e-7
     Sc = schmidt_number(T; compound)
-    return a * inv(sqrt(Sc / 660)) * u^2 * (1 - f)
+    return a * inv(sqrt(Sc / 660)) * (u^2) * (1 - f)
 end
 
 function gassat(T, S, P_sfc, xcfc; compound::String="CFC-11")
     P₀ = 1    
     F = calculate_solubility(T, S; compound)
-    return P_sfc * F * (xcfc * 1e-12) / P₀
+    return P_sfc * F * (xcfc) / P₀
 end
 
 function airseagasflux(T, S, P_sfc, u, f, xcfc, CFCocn; compound::String="CFC-11")

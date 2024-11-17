@@ -20,8 +20,8 @@ function cfc_coupled_system!(du, u, p::CFCParams, t)
    # Calculate air-sea gas exchange
    flux = airseagasflux(p.T(t), p.S, p.P_sfc, p.u, p.f(t), CFCatm, CFCocn)
    # Evolution equations for ocean and atmosphere concentrations
-   du[1] = flux / 1024.
-   du[2] = (-flux + anthropogenic_source(t)) / 1.
+   du[1] = 3.154e+7  * flux / 500. #convert to years, and scale by mixed layer depth
+   du[2] = ((-3.154e+7  * flux / 500.)  + anthropogenic_source(t))
 end
 
 # Prevent negative concentrations
@@ -37,23 +37,40 @@ end
 
 cb = DiscreteCallback(condition, affect!)
 
+# Scenario functions
+function mean_southern_ocean_temperature(t, scenario)
+   if scenario in [:warming, :warming_melt]
+       return 37
+   else
+       return 33
+end
+
+function mean_sea_ice_fraction(t, scenario)
+   
+   if scenario in [:melt, :warming_melt]
+       return 0.1
+   else
+       return 0.2
+   end
+end
+
 # Run simulation for a given scenario
 function run_scenario(scenario)
    tspan = (0.0, 150.0)
    u₀ = [0.0, 0.0]    # Initial conditions
    
    # Fixed parameters
-   S = 34.0           # Salinity
-   u = 10.0          # Wind speed
+   S = 32.0           # Salinity
+   u = 15.0          # Wind speed
    
    # Time-dependent temperature and ice fraction
-   T = t -> southern_ocean_temperature(t, scenario)
-   f = t -> sea_ice_fraction(t, scenario)
+   T = t -> mean_southern_ocean_temperature(t, scenario)
+   f = t -> mean_sea_ice_fraction(t, scenario)
    
    # Setup and solve ODE problem
    p = CFCParams(T, f, S, 1.0, u, "CFC-11")
    prob = ODEProblem(cfc_coupled_system!, u₀, tspan, p)
-   solve(prob, Tsit5(), callback=cb)
+   solve(prob, Tsit5(), callback=cb,reltol = 1e-16, abstol = 1e-16)
 end
 
 # Run all scenarios
