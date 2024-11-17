@@ -43,6 +43,7 @@ function mean_southern_ocean_temperature(t, scenario)
        return 37
    else
        return 33
+   end
 end
 
 function mean_sea_ice_fraction(t, scenario)
