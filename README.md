@@ -27,7 +27,7 @@ The instantaneous gas transfer coefficient ($k_w$) follows Wanninkhof (1992):
 $k_w = a \left(\frac{Sc}{660}\right)^{-1/2} u^2 (1 - f)$
 
 where:
-- $a = 0.251$ $\frac{\text{cm}}{g}$
+- $a = 0.251$ $\frac{cm/hr}{(m/s)^2}$
 - $Sc = A + BT_c + CT_c^2 + DT_c^3 + ET_c^4$ (Schmidt number polynomial)
   - $T_c$ is surface temperature in °C
 - $u$ is 10-meter wind speed
