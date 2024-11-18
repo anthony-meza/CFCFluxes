@@ -4,26 +4,30 @@ This code calculates air-sea fluxes of CFC-11 and CFC-12 according to
 OMIP protocols (Orr et al., 2017) and Dutay (2002). Using this code, one can calculate realistic fluxes 
 as well as test the effects of different parameters on surface fluxes. 
 
+For example, one can make the following visualization using GCM output: 
+
 <img src="plots/CM4X_Sensitivity_Surface.png" width="300" />
 
+## The main equations
 
+### Gas Exchange Flux
 The CFC flux ($F$) is given by:
 
 $F_{CFC} = k_w (CFC_{sat} - CFC_{ocn})$
 
 where:
-- $k_w$ is the air-sea gas transfer velocity
-- $CFC_{sat}$ is the saturation concentration in equilibrium with the water-vapor-saturated atmosphere
-- $CFC_{ocn}$ is the sea surface tracer concentration
+- $k_w$ is the air-sea gas transfer velocity (m/s)
+- $CFC_{sat}$ is the saturation concentration in equilibrium with the water-vapor-saturated atmosphere (mol/m^3)
+- $CFC_{ocn}$ is the sea surface tracer concentration (mol/m^3)
 
-### Gas Transfer Coefficient
+### The Piston Velocity (Gas Transfer Coefficient)
 
 The instantaneous gas transfer coefficient ($k_w$) follows Wanninkhof (1992):
 
 $k_w = a \left(\frac{Sc}{660}\right)^{-1/2} u^2 (1 - f)$
 
 where:
-- $a = 0.251$ (fitted constant)
+- $a = 0.251$ $\frac{\text{cm}}{g}$
 - $Sc = A + BT_c + CT_c^2 + DT_c^3 + ET_c^4$ (Schmidt number polynomial)
   - $T_c$ is surface temperature in °C
 - $u$ is 10-meter wind speed
