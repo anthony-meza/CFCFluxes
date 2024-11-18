@@ -120,7 +120,7 @@ ax[1].set_ylabel("Sea Ice Fraction")
 
 # Atmospheric CFC panel
 ax[2].plot(years, [atmospheric_cfc(t) for t in years], color="k", label="Data")
-ax[2].set_ylabel("Atmospheric CFC [ppt]")
+ax[2].set_ylabel("Historical Atmospheric CFC [ppt]")
 
 # Ocean CFC panel
 scenarios_xy = [(0, 0), (-10, -0.5), (-10, +0.5), (0, 0)]
