@@ -84,7 +84,6 @@ scenarios = [:control, :warming, :melt, :warming_melt]
 solutions = Dict(scenario => run_scenario(scenario, tspan) for scenario in scenarios)
 
 # Plotting setup
-
 colors = Dict(:control => "k", :warming => "r", :melt => "b", :warming_melt => "purple")
 labels = Dict(:control => "Control", :warming => "Warming", :melt => "Ice Melt", :warming_melt => "Warming + Melt")
 
@@ -97,7 +96,7 @@ ocean_data = Dict(
 )
 
 # Create plots
-fig, ax = subplots(4, 1, figsize=(10, 10), sharex=true)
+fig, ax = subplots(4, 1, figsize=(5.0, 6.5), sharex=true)
 
 # Temperature panel
 for scenario in [:warming, :control]
@@ -118,28 +117,34 @@ for scenario in [:melt, :control]
                   va="center", color=colors[scenario])
 end
 ax[1].set_ylabel("Sea Ice Fraction")
-ax[1].set_ylim(0.0, 0.3)
 
 # Atmospheric CFC panel
 ax[2].plot(years, [atmospheric_cfc(t) for t in years], color="k", label="Data")
 ax[2].set_ylabel("Atmospheric CFC [ppt]")
 
 # Ocean CFC panel
-for scenario in scenarios
+scenarios_xy = [(0, 0), (-10, -0.5), (-10, +0.5), (0, 0)]
+lw = [7, 2, 2, 2]
+alphas = [0.2, 0.9, 0.9]
+for (i, scenario) in enumerate([:control, :warming, :melt])
    units = unit(first(ocean_data[:warming]))
     data = ustrip(ocean_data[scenario])
-    ax[3].plot(years, data, color=colors[scenario])
-    ax[3].annotate(labels[scenario], xy=(years[end], data[end]),
+    ax[3].plot(years, data, color=colors[scenario], lw = lw[i], 
+               alpha = alphas[i])
+    axxy = (years[end], data[end]) .+ scenarios_xy[i]
+    ax[3].annotate(labels[scenario], xy=axxy,
                   xytext=(5, 0), textcoords="offset points",
-                  va="center", color=colors[scenario])
+                  va="center", color=colors[scenario],)
    ax[3].set_ylabel("Ocean CFC [$units]")
 
 end
 # Format plots
 [a.grid(alpha=0.4) for a in ax]
-[a.legend(ncols=2) for a in ax]
 ax[3].set_xlabel("Year")
-ax[3].set_xlim(1950, 2100)
+ax[3].set_xlim(1950, 2050)
 ax[3].set_xticks(iyears[1:20:end])
+fig
 fig.tight_layout()
 fig
+fig.savefig(plotsdir("CM4X_Sensitivity_Surface.png"), 
+            bbox_inches = "tight", dpi = 200)
