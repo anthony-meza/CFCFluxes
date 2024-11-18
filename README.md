@@ -9,6 +9,10 @@ aspects of global warming influences surface CFC-11 Concentrations:
 
 <img src="plots/CM4X_Sensitivity_Surface.png" width="300" />
 
+You can even do idealized experiments! 
+
+<img src="plots/CM4X_Sensitivity_Surface_idealized.png" width="300" />
+
 ## The main equations
 
 ### Gas Exchange Flux
