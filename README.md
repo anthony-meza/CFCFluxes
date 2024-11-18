@@ -1,6 +1,11 @@
 # CFCFluxes
 
-Calculate air-sea fluxes of CFC-11 and CFC-12 according to OMIP protocols (Orr et al., 2017) and Dutay (2002).
+This code calculates air-sea fluxes of CFC-11 and CFC-12 according to 
+OMIP protocols (Orr et al., 2017) and Dutay (2002). Using this code, one can calculate realistic fluxes 
+as well as test the effects of different parameters on surface fluxes. 
+
+![alt text]([http://url/to/img.png](https://github.com/anthony-meza/CFCFluxes/blob/6141c9f535d32e405a55637f0e4a866bd381619f/plots/CM4X_Sensitivity_Surface.png))
+
 
 The CFC flux ($F$) is given by:
 
