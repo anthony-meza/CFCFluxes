@@ -4,7 +4,7 @@ This code calculates air-sea fluxes of CFC-11 and CFC-12 according to
 OMIP protocols (Orr et al., 2017) and Dutay (2002). Using this code, one can calculate realistic fluxes 
 as well as test the effects of different parameters on surface fluxes. 
 
-For example, one can make the following visualization using GCM output to test how different d
+For example, one can make the following visualization using GCM output to test how different 
 aspects of global warming influences surface CFC-11 Concentrations: 
 
 <img src="plots/CM4X_Sensitivity_Surface.png" width="300" />
