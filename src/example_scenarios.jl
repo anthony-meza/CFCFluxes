@@ -23,12 +23,12 @@ The temperature evolution consists of:
 """
 function southern_ocean_temperature(t, scenario)
     year = t + 1950
-    base_temp = 0.0
+    base_temp = 4
     seasonal_amp = 0.0
     seasonal = seasonal_amp * sin(2π * (t % 1))
     
     if scenario in [:warming, :warming_melt]
-        warming_rate = 0.03  # °C/year
+        warming_rate = 0.025  # °C/year
         warming = warming_rate * (year - 1950)
         return base_temp + warming + seasonal
     else
@@ -61,12 +61,12 @@ The ice fraction evolution consists of:
 """
 function sea_ice_fraction(t, scenario)
     year = t + 1950
-    base_ice = 0.5
+    base_ice = 0.2
     seasonal_amp = 0.0
     seasonal = seasonal_amp * sin(2π * (t % 1))
     
     if scenario in [:melt, :warming_melt]
-        melt_rate = 0.004  # per year
+        melt_rate = 0.0006  # per year
         ice = base_ice - melt_rate * (year - 1950) + seasonal
         return clamp(ice, 0.0, 1.0)
     else
