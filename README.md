@@ -5,7 +5,7 @@ OMIP protocols (Orr et al., 2017) and Dutay (2002). Using this code, one can cal
 as well as test the effects of different parameters on surface fluxes. 
 
 For example, one can make the following visualization using GCM output to test how different 
-aspects of global warming influences CFC-11 Concentrations: 
+aspects of global warming influences surface CFC-11 Concentrations: 
 
 <img src="plots/CM4X_Sensitivity_Surface.png" width="300" />
 
